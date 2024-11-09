@@ -1,13 +1,22 @@
 # Dockerfile
-FROM node:18 as build
+# Use an official Node.js image as a base
+FROM node:14-alpine
+
+# Set working directory
 WORKDIR /app
-COPY package*.json ./
+
+# Copy package.json and install dependencies
+COPY package.json ./
 RUN npm install
+
+# Copy the rest of the application code
 COPY . .
+
+# Build the React app
 RUN npm run build
 
-# Serve the build folder with Nginx
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Expose port 3000
+EXPOSE 3000
+
+# Start the application
+CMD ["npx", "serve", "-s", "build", "-l", "3000"]
