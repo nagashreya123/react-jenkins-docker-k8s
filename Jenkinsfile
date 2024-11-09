@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Set your Docker Hub credentials here (make sure to add them in Jenkins credentials)
-        DOCKER_HUB_REPO = 'your-dockerhub-username/react-app'
+        DOCKER_HUB_REPO = 'nagashreya2005/react-app'
         DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
     }
 
@@ -11,7 +11,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone your GitHub repository
-                git branch: 'main', url: 'https://github.com/your-username/your-react-repo.git'
+                git branch: 'main', url: 'https://github.com/nagashreya123/react-jenkins-docker-k8s.git'
             }
         }
         
