@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  httpd_1:
+    image: httpd:latest
+    container_name: apache_httpd_1
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html1:/usr/local/apache2/htdocs/
+  httpd_2:
+    image: httpd:latest
+    container_name: apache_httpd_2
+    ports:
+      - "8082:80"
+    volumes:
+      - ./html2:/usr/local/apache2/htdocs/
+  
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins_server
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    environment:
+      JENKINS_OPTS: "--prefix=/jenkins"
+  
+volumes:
+  mongo_data:
+  jenkins_data:
